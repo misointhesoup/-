@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <style>
+    :root {
+      --spacing: 10px;
+      --base: #ffd700;
+      --blur: 10px;
+    }
+
+    /* :root是文檔的根元素，屬偽類 
+    將css變數宣告在這裡，使用方法需加上兩條--*/
+
+    html {
+      height: 100vh;
+      background-color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: fantasy;
+    }
+
+    label {
+      color: ghostwhite;
+      font-size: 30px;
+    }
+
+    .change {
+      margin: 10px 10px 50px 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    /* 使用var來使用css變數
+    filter需再加上blur(因為filter還有其他屬性) */
+  </style>
+
+</head>
+
+<body>
+
+  <div class="change">
+    <label for="spacing">Spacing：</label>
+    <input id="spacing" type="range" name="spacing" value="10" max="100" data-sizing="px">
+    <!-- 設定單位，利用data-attribute*來使用
+    並設定預設值 -->
+    <label for="blur">Blur：</label>
+    <input id="blur" type="range" name="blur" value="0" max="10" data-sizing="px">
+
+    <label for="base">Base：</label>
+    <input id="base" type="color" name="base" value="#ffd700">
+  </div>
+
+  <img src="https://tn.fishki.net/26/upload/en/201212/28/4123/d27b618d3b1bd409ff85514817a931b9.jpg">
+
+  <script>
+    let inputs = document.querySelectorAll('.change input');
+    // 宣告所有input
+
+    function changeType() {
+      const dataSizing = this.dataset.sizing || '';
+      // 宣告一個變數為單位或是空值
+      // 有單位就抓單位，沒有就是空值
+      // this 指的是綁定事件的元素
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + dataSizing);
+    }
+
+    // 變更文件的css屬性，使用setProperty()，內加新的屬性值
+    // `--${this.name}`包含spacing、blur、padding
+
+    // 此處函式不能使用箭頭函式，因為有this，若是用箭頭函式會抓不到資料
+
+    inputs.forEach(input => input.addEventListener('change', changeType));
+    // 監聽inputs下所有的input，並加上change(一個元素值的改變就會觸發))與觸發時的函式
+    // change事件只適用於"input"、"textarea"和"select"元素
+    inputs.forEach(input => input.addEventListener('mousemove', changeType));
+    // 原本是拉動完，鬆開滑鼠後才會看到結果
+    // 加上mousemove事件，就可以邊滑動邊看結果
+  </script>
+
+</body>
+
+</html>

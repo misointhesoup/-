@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    html {
+      background: url("https://nuvomagazine.scdn2.secure.raxcdn.com/wp-content/uploads/2019/10/The-Killer.jpg");
+      background-size: cover;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .clock {
+      width: 20em;
+      height: 20em;
+      border-radius: 50% 50%;
+      position: relative;
+    }
+
+    .clock2 {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .clock2:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -5px);
+      background-color: gold;
+    }
+
+    .time {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
+    .second:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 2px;
+      height: 40%;
+      top: 11%;
+      left: 50%;
+      transform: translate(-50%, 0px);
+      background-color: gold;
+    }
+
+    .min:after {
+      content: '';
+      position: absolute;
+      display: block;
+      width: 2px;
+      height: 30%;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, 0px);
+      background-color: gold;
+    }
+
+    .hour:after {
+      content: '';
+      position: absolute;
+      display: block;
+      width: 2px;
+      height: 20%;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, 0px);
+      background-color: gold;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="clock">
+    <div class="clock2">
+      <div class="time second"></div>
+      <div class="time min"></div>
+      <div class="time hour"></div>
+    </div>
+  </div>
+
+
+  <script>
+    let second = document.querySelector('.second');
+    let min = document.querySelector('.min');
+    let hour = document.querySelector('.hour');
+
+    // 宣告
+
+    function setDate() {
+      const now = new Date();
+      const seconds = now.getSeconds();
+      const mins = now.getMinutes();
+      const hours = now.getHours();
+
+      // 用new Date()函式去抓取當下時間
+      // 再抓秒、分、時
+
+      const secondDegress = ((seconds / 60) * 360);
+      const minDegress = ((mins / 60) * 360);
+      const hourDegress = ((hours / 12) * 360);
+
+      // 算各個針轉一圈的角度
+
+      second.style.transform = `rotate(${secondDegress}deg)`;
+      min.style.transform = `rotate(${minDegress}deg)`;
+      hour.style.transform = `rotate(${hourDegress}deg)`;
+    }
+
+    // 將計算出的角度渲染到html上
+    setDate();
+    setInterval(setDate, 1000);
+
+    // 先呼叫一次setDate()，才會轉到正確的位置上
+    // setInterval設定1000毫秒，每1000毫秒觸發函式
+  </script>
+</body>
+
+</html>

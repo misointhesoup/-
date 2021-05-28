@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      outline: none;
+      font-family: Courier;
+      font-size: 25px;
+    }
+
+    html {
+      background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Nikola_Tesla%2C_with_his_equipment_EDIT.jpg/1200px-Nikola_Tesla%2C_with_his_equipment_EDIT.jpg") center;
+      background-size: cover;
+    }
+
+    .morse {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .keys {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .key {
+      height: 60px;
+      width: 60px;
+      text-align: center;
+      line-height: 60px;
+      color: white;
+      background-color: black;
+      border-radius: 10px;
+      border: solid 2px gold;
+      margin: 10px;
+      transition: all .07s ease;
+    }
+
+    .playing {
+      transform: scale(1.1);
+      border-color: #ffc600;
+      box-shadow: 0 0 2rem #ffc600;
+    }
+
+    .end {
+      font-size: 10px;
+      color: ghostwhite;
+      position: absolute;
+      bottom: 0;
+      padding: 0 20px 10px 0;
+    }
+
+    #co {
+      width: 200px;
+      height: 50px;
+      background-color: black;
+      border: gold solid 2px;
+      border-radius: 15px;
+      text-align: center;
+      line-height: 50px;
+    }
+
+    .test {
+      color: #ffc600;
+      visibility: hidden;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="morse">
+    <div id="co">
+      <p data-key="81" class="test">..--</p>
+      <p data-key="87" class="test2">.--</p>
+    </div>
+    <div class="keys one">
+      <div data-key="81" class="key">Ｑ</div>
+      <div data-key="87" class="key">W</div>
+      <div data-key="69" class="key">E</div>
+      <div data-key="82" class="key">R</div>
+      <div data-key="84" class="key">T</div>
+      <div data-key="89" class="key">Y</div>
+      <div data-key="85" class="key">U</div>
+      <div data-key="73" class="key">I</div>
+      <div data-key="79" class="key">O</div>
+      <div data-key="80" class="key">P</div>
+
+
+    </div>
+    <div class="keys two">
+      <div data-key="65" class="key">A</div>
+      <div data-key="83" class="key">S</div>
+      <div data-key="68" class="key">D</div>
+      <div data-key="70" class="key">F</div>
+      <div data-key="71" class="key">G</div>
+      <div data-key="72" class="key">H</div>
+      <div data-key="74" class="key">J</div>
+      <div data-key="75" class="key">K</div>
+      <div data-key="76" class="key">L</div>
+
+    </div>
+    <div class="keys three">
+      <div data-key="90" class="key">Z</div>
+      <div data-key="88" class="key">X</div>
+      <div data-key="67" class="key">C</div>
+      <div data-key="86" class="key">V</div>
+      <div data-key="66" class="key">B</div>
+      <div data-key="78" class="key">N</div>
+      <div data-key="77" class="key">M</div>
+
+    </div>
+    <div class="end">摩斯密碼鍵盤</div>
+  </div>
+  <audio data-key="65" src="sound/a.wav"></audio>
+  <audio data-key="66" src="sound/b.wav"></audio>
+  <audio data-key="67" src="sound/c.wav"></audio>
+  <audio data-key="68" src="sound/d.wav"></audio>
+  <audio data-key="69" src="sound/e.wav"></audio>
+  <audio data-key="70" src="sound/f.wav"></audio>
+  <audio data-key="71" src="sound/g.wav"></audio>
+  <audio data-key="72" src="sound/h.wav"></audio>
+  <audio data-key="73" src="sound/i.wav"></audio>
+  <audio data-key="74" src="sound/j.wav"></audio>
+  <audio data-key="75" src="sound/k.wav"></audio>
+  <audio data-key="76" src="sound/l.wav"></audio>
+  <audio data-key="77" src="sound/m.wav"></audio>
+  <audio data-key="78" src="sound/n.wav"></audio>
+  <audio data-key="79" src="sound/o.wav"></audio>
+  <audio data-key="80" src="sound/p.wav"></audio>
+  <audio data-key="81" src="sound/q.wav"></audio>
+  <audio data-key="82" src="sound/r.wav"></audio>
+  <audio data-key="83" src="sound/s.wav"></audio>
+  <audio data-key="84" src="sound/t.wav"></audio>
+  <audio data-key="85" src="sound/u.wav"></audio>
+  <audio data-key="86" src="sound/v.wav"></audio>
+  <audio data-key="87" src="sound/w.wav"></audio>
+  <audio data-key="88" src="sound/x.wav"></audio>
+  <audio data-key="89" src="sound/y.wav"></audio>
+  <audio data-key="90" src="sound/z.wav"></audio>
+
+
+  <script>
+
+    window.addEventListener('keydown', function (e) {
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      if (!audio) return;
+      audio.currenTime = 0;
+      audio.play();
+
+      // 監聽window，整個頁面都納入監聽
+      // 宣告audio，並讀取audio 中的data-key，再加事件的參數
+      // 如果不符合audio，停止函式
+      // 加上currenTime，使音檔播完後回到起始點
+      // 加上play()函式，讓audio的音檔能順利撥出
+
+      const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+      key.classList.add('playing');
+
+      // 宣告key，並讀取key中的data-key值，再加事件的參數
+      // 添加class名稱playing，若按下鍵盤才能讀取到css的playing
+      //（若直接在html中加上playing，會直接讀取到css，故不用）
+
+      const keys = document.querySelectorAll('.key');
+      keys.forEach((key) => { key.addEventListener('transitionend', removeTransition) });
+
+      const test = document.querySelector(`.test[data-key="${e.keyCode}"]`).style.visibility = "visible";
+    }
+    )
+
+    // 選取所有的key並宣告
+    // 使用forEach()讀取每一個key，類似for迴圈，但能更簡短，省略i、arr.length等
+    // 用箭頭函示省略掉寫function
+    // key監聽，並為每一個元素加transitionend事件，事件執行觸發removeTransition
+
+    let removeTransition = function (e) {
+      if (e.propertyName !== 'transform') return;
+      e.target.classList.remove('playing');
+    }
+    //  宣告removeTransition函式
+    // propertyName為事件的事件屬性，發生transition時，會回傳關聯css相關的名稱
+    // 當事件觸發後移掉playing，使用target或this都可以
+
+
+
+  </script>
+</body>
+
+</html>
