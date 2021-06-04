@@ -329,10 +329,22 @@ table {
 }
 
 .subscribe {
+	margin: 0 auto;
 	height: 116px;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	background-color: #3F5D45;
+}
+
+.subscribe-logo {
+	width: 40px;
+	height: 40px;
+	margin-right: 20px;
+}
+
+.subscribe>p {
+	color: #EAF0ED;
 }
 
 .mail {
@@ -359,28 +371,27 @@ input {
 	background-color: #FFE180;
 }
 
-.subscribe-logo {
-	width: 40px;
-	height: 40px;
-	margin: 38px 20px 38px 122px;
-}
-
-.subscribe>p {
-	color: #EAF0ED;
-}
 
 .info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	background-color: #EAF0ED;
 }
 
-.info-1 {
+.info-detail {
 	display: flex;
 	padding-top: 30px;
 }
 
 .adress {
-	margin-left: 122px;
 	margin-right: 495px;
+}
+
+.infoLogo {
+	width: 171px;
+	height: 26px;
 }
 
 .adress>ul {
@@ -403,11 +414,6 @@ blockquote {
 	padding-top: 12px;
 }
 
-.infoLogo {
-	width: 171px;
-	height: 26px;
-}
-
 .info-2 {
 	display: flex;
 	align-items: center;
@@ -416,8 +422,7 @@ blockquote {
 }
 
 .icon {
-	margin-left: 122px;
-	margin-right: 450px;
+	margin-right: 400px;
 }
 
 .icon>img {
