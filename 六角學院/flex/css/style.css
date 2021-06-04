@@ -365,7 +365,9 @@ input {
   width: 312px;
   background-color: #EAF0ED;
   border: none;
+  outline-style: none;
 }
+
 
 .mailArrow {
   background-color: #FFE180;
